@@ -1,0 +1,44 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+var token;
+var clientID = "hdiebqr67mptvyg1v6ayhbry1njc5q";
+var clientSecret = "m3znv4j8n8rp97swljywp333zh4y6w";
+/*$.ajax({
+    type:'POST',
+    url : "https://id.twitch.tv/oauth2/token?client_id="+clientID+"&client_secret="+clientSecret+"&grant_type=client_credentials",
+    data : "",
+    async:false,
+    cache:false,
+    dataType:"json",
+    success:function(data){
+      token = JSON.stringify(data).split(',')[0].split(":")[1].substring(1,60);
+      token = token.substring(0,token.length-1);
+      console.log(token);
+    },
+});*/
+var gameid=0;
+$.ajax({
+      type:'GET',
+      url : "http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=94863FF8EF62D3500C5E088960DA8507&steamid=76561198085096897&format=json",
+      async:false,
+      cache:false,
+      dataType:"json",
+      success:function(data){
+        console.log(data);
+      }
+});/*
+$.ajax({
+      type:'GET',
+      url : "https://api.twitch.tv/helix/games",
+      headers :{
+        "Client-ID":clientID
+      },
+      data : "id="+gameid,
+      async:false,
+      cache:false,
+      dataType:"json",
+      success:function(data){
+        console.log(data)
+      }
+});*/
+</script>
