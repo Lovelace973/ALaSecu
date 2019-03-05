@@ -1,4 +1,4 @@
-Corentin Huaulmééééééééééééééééééééééééééééééééééééééééé
+Corentin Huaulmé
 Andy Dinga
 Lucien Bouyeure
 Aurélien Dad
