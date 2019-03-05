@@ -4,7 +4,7 @@ Lucien Bouyeure
 Aurélien Dad
 Quentin Gonçalves
 
-TWITCH METEOROLOGIQUE :
+TWITCH-STEAM-METEO :
 
 API Twitch : https://dev.twitch.tv/docs/api/
 API Steam : https://developer.valvesoftware.com/wiki/Steam_Web_API#GetGlobalAchievementPercentagesForApp_.28v0001.29
