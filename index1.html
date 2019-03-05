@@ -5,8 +5,8 @@ var clientID = "hdiebqr67mptvyg1v6ayhbry1njc5q";
 var clientSecret = "m3znv4j8n8rp97swljywp333zh4y6w";
 /*$.ajax({
     type:'POST',
-    url : "https://id.twitch.tv/oauth2/token?client_id="+clientID,
-    data : "client_secret="+clientSecret+"&grant_type=client_credentials&scope=analytics:read:games",
+    url : "https://id.twitch.tv/oauth2/token?client_id="+clientID+"&client_secret="+clientSecret+"&grant_type=client_credentials",
+    data : "",
     async:false,
     cache:false,
     dataType:"json",
@@ -18,14 +18,9 @@ var clientSecret = "m3znv4j8n8rp97swljywp333zh4y6w";
 });*/
 
 var gameid=0;
-var userid= 0;
-
 $.ajax({
       type:'GET',
-      url : "https://api.twitch.tv/helix/analytics/games",
-      headers :{
-        "Bearer":token
-      },
+      url : "http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=94863FF8EF62D3500C5E088960DA8507&steamid=76561198085096897&format=json",
       async:false,
       cache:false,
       dataType:"json",
@@ -34,11 +29,6 @@ $.ajax({
       }
 });/*
 $.ajax({
-=======
-});
-
-/*$.ajax({
->>>>>>> 7f3dcee2454457d1871ac6a69a2bfabbc86b594b:index.html
       type:'GET',
       url : "https://api.twitch.tv/helix/games",
       headers :{
@@ -51,6 +41,5 @@ $.ajax({
       success:function(data){
         console.log(data)
       }
-<<<<<<< HEAD:index1.html
 });*/
 </script>
