@@ -1,20 +1,52 @@
+jQuery(document).ready(function($){
+
+  $.ajax({
+    type:'POST',
+    url : "https://id.twitch.tv/oauth2/token?client_id=hdiebqr67mptvyg1v6ayhbry1njc5q&client_secret=u3j0i8gj4ci24qydbmjr8o2idqdze8&grant_type=client_credentials",
+    data : "",
+    async:false,
+    cache:false,
+    dataType:"json",
+    success:function(data){
+      token = JSON.stringify(data).split(',')[0].split(":")[1].substring(1,60);
+      token = token.substring(0,token.length-1);
+      console.log(token);
+    },
+  });
 
 
-ID = hdiebqr67mptvyg1v6ayhbry1njc5q;
-secret = m3znv4j8n8rp97swljywp333zh4y6w;
 
-$.ajax({
-		type:'GET',
-    url : https://id.twitch.tv/oauth2/token?client_id=uo6dggojyb8d6soh92zknwmi5ej1q2&client_secret=nyo51xcdrerl8z9m56w9w6wg&grant_type=client_credentials
-    data : "IP=true",
-		async:false,
-		cache:false,
-		dataType:"json",
-		success:function(data){
-			$("#champLogin").val(data[1]);
-			$("#champMdp").val(data[2]);
-		},
-	});
+  var top = null;
+  $.ajax({
+        type:'GET',
+        url : "https://api.twitch.tv/kraken/games/top",
+        headers :{
+          "Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
+        },
+        data : "&limit="+5,
+        async:false,
+        cache:false,
+        dataType:"json",
+        success:function(data){
+          var viewer = 0;
+          top = data.top;
+          data.top.forEach(function(element) {
+            viewer+=element.viewers;
+          });
 
+          /*
+          $("#viewer-count").text(viewer);
+          console.log(data.top[0].viewers);
+          $("#first_game_count").text(data.top[0].viewers);
+          $("#first_game_name").text(data.top[0].game.name);*/
 
-https://id.twitch.tv/oauth2/token?client_id=uo6dggojyb8d6soh92zknwmi5ej1q2&client_secret=nyo51xcdrerl8z9m56w9w6wg&grant_type=client_credentials
+          var ite = 0;
+
+          $(".game-name").each(function(num){
+            $('.game-name').eq(ite).text(data.top[ite].game.name);
+            $('.viewer-count').eq(ite).text(data.top[ite].viewers);
+            ite++;
+          });
+        }
+  });
+});
