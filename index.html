@@ -233,6 +233,8 @@
                         </div>
                     </div>
 
+                    <img src=""></img>
+
                     <div class="language-select dropdown" id="language-select">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown"  id="language" aria-haspopup="true" aria-expanded="true">
                             <i class="flag-icon flag-icon-us"></i>
@@ -290,7 +292,7 @@
             </div>
 
 
-            <div class="col-sm-6 col-lg-3">
+            <div id="stream0" class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-1">
                     <div class="card-body pb-0">
                         <div class="dropdown float-right">
@@ -320,7 +322,7 @@
             </div>
             <!--/.col-->
 
-            <div class="col-sm-6 col-lg-3">
+            <div id="stream1" class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-2">
                     <div class="card-body pb-0">
                         <div class="dropdown float-right">
@@ -337,7 +339,7 @@
                         </div>
                         <h4 class="mb-0">
                             <span class= "viewer-count">
-                            </span>
+                $("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");              </span>
                         </h4>
                         <p class="text-light game-name"></p>
 
@@ -350,7 +352,7 @@
             </div>
             <!--/.col-->
 
-            <div class="col-sm-6 col-lg-3">
+            <div id="stream2" class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-3">
                     <div class="card-body pb-0">
                         <div class="dropdown float-right">
@@ -379,7 +381,7 @@
             </div>
             <!--/.col-->
 
-            <div class="col-sm-6 col-lg-3">
+            <div id="stream3" class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-4">
                     <div class="card-body pb-0">
                         <div class="dropdown float-right">
@@ -494,7 +496,7 @@
                       <div class="carousel-item active">
                         <div id="twitch-embed1"></div>
                             <!-- Load the Twitch embed script -->
-                            <iframe
+                            <iframe id="lecteurTwitch1"
                                 src="https://player.twitch.tv/?channel=summit1g&muted=true"
                                 height="720"
                                 width="1280"
@@ -506,7 +508,7 @@
                       <div class="carousel-item">
                         <div id="twitch-embed2"></div>
                           <!-- Load the Twitch embed script -->
-                          <iframe
+                          <iframe id="lecteurTwitch2"
                               src="https://player.twitch.tv/?channel=nifex8&muted=true"
                               height="720"
                               width="1280"
@@ -518,7 +520,7 @@
                       <div class="carousel-item">
                         <div id="twitch-embed3"></div>
                           <!-- Load the Twitch embed script -->
-                          <iframe
+                          <iframe id="lecteurTwitch3"
                               src="https://player.twitch.tv/?channel=gorgc&muted=true"
                               height="720"
                               width="1280"
@@ -528,15 +530,15 @@
                           </iframe>
                       </div>
                       </div>
+                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                      </a>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
-                    </a>
           </div>
     </div><!-- /#right-panel -->
 

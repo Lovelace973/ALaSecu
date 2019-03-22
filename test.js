@@ -2,28 +2,42 @@ jQuery(document).ready(function($){
 
 $("#carouselExampleIndicators").hide();
 
-  $(".col-sm-6").click(function(){
-    $("#carouselExampleIndicators").show();
-    $("#carouselExampleIndicators").carousel();
-  })
 
-  $.ajax({
-    type:'POST',
-    url : "https://id.twitch.tv/oauth2/token?client_id=hdiebqr67mptvyg1v6ayhbry1njc5q&client_secret=u3j0i8gj4ci24qydbmjr8o2idqdze8&grant_type=client_credentials",
-    data : "",
-    async:false,
-    cache:false,
-    dataType:"json",
-    success:function(data){
-      token = JSON.stringify(data).split(',')[0].split(":")[1].substring(1,60);
-      token = token.substring(0,token.length-1);
-      console.log(token);
-    },
-  });
-
+$("#lecteurTwitch1").attr("src","ton src");
 
 
   var top = null;
+
+  $(".col-sm-6").each(function(i, obj) {
+    console.log(obj);
+      obj.click(function(){
+        console.log("ALLO ");
+          //console.log($("."+$(this).attr("class")).children());
+        var game_name = ((($(this).find(".card")).find(".card-body")).find("p").text());
+        channelName=null;
+        $.ajax({
+              type:'GET',
+              url : "https://api.twitch.tv/kraken/streams/?game="+game_name,
+              headers :{
+                "Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
+              },
+              async:false,
+              cache:false,
+              dataType:"json",
+              success:function(data){
+                $("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
+                $("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
+                $("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
+                document.getElementById('lecteurTwitch1').src = document.getElementById('lecteurTwitch1').src
+                document.getElementById('lecteurTwitch2').src = document.getElementById('lecteurTwitch2').src
+                document.getElementById('lecteurTwitch3').src = document.getElementById('lecteurTwitch3').src
+              }
+            });
+        $("#carouselExampleIndicators").show();
+        $("#carouselExampleIndicators").carousel();
+      });
+  });
+
   $.ajax({
         type:'GET',
         url : "https://api.twitch.tv/kraken/games/top",
@@ -40,6 +54,7 @@ $("#carouselExampleIndicators").hide();
           data.top.forEach(function(element) {
             viewer+=element.viewers;
           });
+
 
           /*
           $("#viewer-count").text(viewer);
