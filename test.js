@@ -1,11 +1,11 @@
 jQuery(document).ready(function($){
 
-$("#carouselExampleIndicators").hide();
+	$("#carouselExampleIndicators").hide();
 
-  $(".col-sm-6").click(function(){
-    $("#carouselExampleIndicators").show();
-    $("#carouselExampleIndicators").carousel();
-  })
+  	$(".col-sm-6").click(function(){
+   	$("#carouselExampleIndicators").show();
+   	$("#carouselExampleIndicators").carousel();
+  	})
 
   $.ajax({
     type:'POST',
@@ -55,5 +55,17 @@ $("#carouselExampleIndicators").hide();
             ite++;
           });
         }
+  });
+
+  $.ajax({
+	  type:'GET',
+	  url : "https://www.prevision-meteo.ch/services/json/mans",
+	  data : "",
+	  async:false,
+	  cache:false,
+	  dataType:"json",
+	  success:function(data){
+		  console.log(data);
+	  }
   });
 });
