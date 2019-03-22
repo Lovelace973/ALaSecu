@@ -1,5 +1,12 @@
 jQuery(document).ready(function($){
 
+$("#carouselExampleIndicators").hide();
+
+  $(".col-sm-6").click(function(){
+    $("#carouselExampleIndicators").show();
+    $("#carouselExampleIndicators").carousel();
+  })
+
   $.ajax({
     type:'POST',
     url : "https://id.twitch.tv/oauth2/token?client_id=hdiebqr67mptvyg1v6ayhbry1njc5q&client_secret=u3j0i8gj4ci24qydbmjr8o2idqdze8&grant_type=client_credentials",
