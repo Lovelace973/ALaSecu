@@ -65,7 +65,11 @@ jQuery(document).ready(function($){
 	  cache:false,
 	  dataType:"json",
 	  success:function(data){
-		  console.log(data);
+		  console.log(data.city_info.name);
+		  $("#city_info").text(data.city_info.name);
+		  $("#temp").text(data.current_condition.tmp);
+		  console.log(data.current_condition.icon);
+		  $("#temps_actuel").attr("src",data.current_condition.icon);
 	  }
   });
 });
