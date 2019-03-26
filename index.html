@@ -284,7 +284,7 @@
 
             <div class="col-sm-12">
                 <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                    <span class="badge badge-pill badge-success">Success</span> ASSY BONANGA.
+                    <span class="badge badge-pill badge-success">Success</span> You are successfully connected.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -292,7 +292,7 @@
             </div>
 
 
-            <div id="stream0" class="col-sm-6 col-lg-3">
+            <div id="stream0" class="col-sm-6 col-lg-3 caseJeu">
                 <div class="card text-white bg-flat-color-1">
                     <div class="card-body pb-0">
                         <div class="dropdown float-right">
@@ -322,7 +322,7 @@
             </div>
             <!--/.col-->
 
-            <div id="stream1" class="col-sm-6 col-lg-3">
+            <div id="stream1" class="col-sm-6 col-lg-3 caseJeu">
                 <div class="card text-white bg-flat-color-2">
                     <div class="card-body pb-0">
                         <div class="dropdown float-right">
@@ -338,8 +338,7 @@
                             </div>
                         </div>
                         <h4 class="mb-0">
-                            <span class= "viewer-count">
-                $("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");              </span>
+                            <span class= "viewer-count"></span>
                         </h4>
                         <p class="text-light game-name"></p>
 
@@ -352,7 +351,7 @@
             </div>
             <!--/.col-->
 
-            <div id="stream2" class="col-sm-6 col-lg-3">
+            <div id="stream2" class="col-sm-6 col-lg-3 caseJeu">
                 <div class="card text-white bg-flat-color-3">
                     <div class="card-body pb-0">
                         <div class="dropdown float-right">
@@ -381,7 +380,7 @@
             </div>
             <!--/.col-->
 
-            <div id="stream3" class="col-sm-6 col-lg-3">
+            <div id="stream3" class="col-sm-6 col-lg-3 caseJeu">
                 <div class="card text-white bg-flat-color-4">
                     <div class="card-body pb-0">
                         <div class="dropdown float-right">
@@ -539,6 +538,23 @@
                         <span class="sr-only">Next</span>
                       </a>
                     </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-3" id=meteo>
+             <div class="card text-white bg-flat-color-4">
+                  <div class="card-body pb-0">
+                      <h4 class="mb-0">
+                          <span id="temp"></span>
+                      </h4>
+                      <p class="text-light" id="city_info"></p>
+                      <img id="temps_actuel" />
+
+                      <div class="chart-wrapper px-3" style="height:70px;" height="70">
+                          <canvas id="widgetChart4"></canvas>
+                      </div>
+
+                  </div>
+             </div>
           </div>
     </div><!-- /#right-panel -->
 

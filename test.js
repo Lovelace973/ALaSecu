@@ -1,14 +1,29 @@
 jQuery(document).ready(function($){
 
-$("#carouselExampleIndicators").hide();
+	$("#carouselExampleIndicators").hide();
 
+  	$(".col-sm-6").click(function(){
+   	$("#carouselExampleIndicators").show();
+   	$("#carouselExampleIndicators").carousel();
+  	})
 
-$("#lecteurTwitch1").attr("src","ton src");
-
+  $.ajax({
+    type:'POST',
+    url : "https://id.twitch.tv/oauth2/token?client_id=hdiebqr67mptvyg1v6ayhbry1njc5q&client_secret=u3j0i8gj4ci24qydbmjr8o2idqdze8&grant_type=client_credentials",
+    data : "",
+    async:false,
+    cache:false,
+    dataType:"json",
+    success:function(data){
+      token = JSON.stringify(data).split(',')[0].split(":")[1].substring(1,60);
+      token = token.substring(0,token.length-1);
+      console.log(token);
+    },
+  });
 
   var top = null;
 
-  $(".col-sm-6").each(function(i, obj) {
+  $(".caseJeu").each(function(i, obj) {
     console.log(obj);
       obj.click(function(){
         console.log("ALLO ");
@@ -70,5 +85,21 @@ $("#lecteurTwitch1").attr("src","ton src");
             ite++;
           });
         }
+  });
+
+  $.ajax({
+	  type:'GET',
+	  url : "https://www.prevision-meteo.ch/services/json/mans",
+	  data : "",
+	  async:false,
+	  cache:false,
+	  dataType:"json",
+	  success:function(data){
+		  console.log(data.city_info.name);
+		  $("#city_info").text(data.city_info.name);
+		  $("#temp").text(data.current_condition.tmp);
+		  console.log(data.current_condition.icon);
+		  $("#temps_actuel").attr("src",data.current_condition.icon);
+	  }
   });
 });
