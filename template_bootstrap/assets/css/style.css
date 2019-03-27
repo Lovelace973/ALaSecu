@@ -980,7 +980,9 @@ button:focus {
   outline: 0; }
 
 img {
-  max-width: 100%; }
+  max-width: 200%;
+  margin_top: 0;
+  text_align: center;}
 
 .btn,
 button,
@@ -1001,7 +1003,7 @@ textarea {
   width: 100%; }
 
 aside.left-panel {
-  background: #272c33;
+  background:  #000000;
   display: table-cell;
   height: 100vh;
   min-height: 100%;
@@ -1012,7 +1014,7 @@ aside.left-panel {
   transition: width 0.3s ease; }
 
 .navbar {
-  background: #272c33;
+  background:  #000000;
   border-radius: 0;
   border: none;
   display: block;
