@@ -910,19 +910,19 @@
       background: #a0cf3c; }
 
 .bg-flat-color-1 {
-  background: #20a8d8; }
+  background: #4a3393; }
 
 .bg-flat-color-2 {
-  background: #63c2de; }
+  background: #4a3393; }
 
 .bg-flat-color-3 {
-  background: #ffc107; }
+  background: #4a3393; }
 
 .bg-flat-color-4 {
-  background: #f86c6b; }
+  background: #4a3393; }
 
 .bg-flat-color-5 {
-  background: #4dbd74; }
+  background: #4a3393; }
 
 .transition {
   -webkit-transition: all 0.3s ease;
@@ -1294,7 +1294,7 @@ body.open .navbar .navbar-brand.hidden {
       content: "/\00a0"; }
 
 .right-panel header.header {
-  background: #fff;
+  background:  #6846a6  ;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
   clear: both;
   display: inline-block;
