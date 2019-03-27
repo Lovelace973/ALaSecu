@@ -87,7 +87,7 @@ $jq.ajax({
 		  $jq("#city_info").text(data.city_info.name);
 		  $jq("#temp").text("Maintenant "+data.current_condition.tmp+"°C - Max ");
 		  $jq("#tempmax").text(data.fcst_day_0.tmax+"°C");
-		  $jq("#temps_actuel").attr("src",data.current_condition.icon);
+		  $jq("#temps_actuel").attr("src",data.current_condition.icon_big);
 			meteo = data;
 	  }
   });
@@ -96,7 +96,7 @@ $jq.ajax({
 	  		  $jq("#city_info").text(meteo.city_info.name);
 	  		  $jq("#temp").text("Maintenant "+meteo.current_condition.tmp+"°C - Max ");
 	  		  $jq("#tempmax").text(meteo.fcst_day_0.tmax+"°C");
-	  		  $jq("#temps_actuel").attr("src",meteo.current_condition.icon);
+	  		  $jq("#temps_actuel").attr("src",meteo.current_condition.icon_big);
  });
 
 	$jq("#j1").click(function(){
@@ -104,21 +104,21 @@ $jq.ajax({
 			  $jq("#city_info").text(meteo.city_info.name);
 			  $jq("#temp").text("Min "+meteo.fcst_day_1.tmin+"°C - Max ");
 			  $jq("#tempmax").text(meteo.fcst_day_1.tmax+"°C");
-			  $jq("#temps_actuel").attr("src",meteo.fcst_day_1.icon);
+			  $jq("#temps_actuel").attr("src",meteo.fcst_day_1.icon_big);
 	});
 
 	$jq("#j2").click(function(){
 			  $jq("#city_info").text(meteo.city_info.name);
 			  $jq("#temp").text("Min "+meteo.fcst_day_2.tmin+"°C - Max ");
 			  $jq("#tempmax").text(meteo.fcst_day_2.tmax+"°C");
-			  $jq("#temps_actuel").attr("src",meteo.fcst_day_2.icon);
+			  $jq("#temps_actuel").attr("src",meteo.fcst_day_2.icon_big);
 	});
 
 	$jq("#j3").click(function(){
 			  $jq("#city_info").text(meteo.city_info.name);
 			  $jq("#temp").text("Min "+meteo.fcst_day_3.tmin+"°C - Max ");
 			  $jq("#tempmax").text(meteo.fcst_day_3.tmax+"°C");
-			  $jq("#temps_actuel").attr("src",meteo.fcst_day_3.icon);
+			  $jq("#temps_actuel").attr("src",meteo.fcst_day_3.icon_big);
 	});
 });
 
