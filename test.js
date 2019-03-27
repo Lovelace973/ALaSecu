@@ -98,8 +98,9 @@ jQuery(document).ready(function($){
 		  console.log(data.city_info.name);
 		  $("#city_info").text(data.city_info.name);
 		  $("#temp").text(data.current_condition.tmp);
-		  console.log(data.current_condition.icon);
 		  $("#temps_actuel").attr("src",data.current_condition.icon);
+		  $("#sunrise").text(data.city_info.sunrise);
+		  $("#sunset").text(data.city_info.sunset);
 	  }
   });
 });
