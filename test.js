@@ -9,7 +9,7 @@ $jq(document).ready(function(){
   $jq.ajax({
     type:'POST',
     url : "https://id.twitch.tv/oauth2/token?client_id=hdiebqr67mptvyg1v6ayhbry1njc5q&client_secret=u3j0i8gj4ci24qydbmjr8o2idqdze8&grant_type=client_credentials",
-    data : "",
+    data : "scope=user:read:email",
     async:false,
     cache:false,
     dataType:"json",
@@ -20,6 +20,25 @@ $jq(document).ready(function(){
     },
   });
 
+
+
+$jq.ajax({
+			type:'GET',
+			url : "https://api.twitch.tv/helix/users?login=ZeratoR",
+			headers :{
+				"Authorization":"Bearer "+token
+			},
+			data : "",
+			async:false,
+			cache:false,
+			dataType:"json",
+			success:function(data){
+				console.log(data);
+			},
+			error:function(error){
+				console.log(error);
+			}
+});
   var top = null;
 
   $jq.ajax({
