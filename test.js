@@ -71,7 +71,31 @@ $jq(document).ready(function(){
 	  }
   });
 
+<<<<<<< HEAD
 	$jq("#j1").click(function(){
+=======
+  $("#j0").click(function(){
+
+	  $.ajax({
+		 type:'GET',
+		 url : "https://www.prevision-meteo.ch/services/json/mans",
+		 data : "",
+		 async:false,
+		 cache:false,
+		 dataType:"json",
+		 success:function(data){
+			  console.log(data.city_info.name);
+	  		  $("#city_info").text(data.city_info.name);
+	  		  $("#temp").text(data.current_condition.tmp);
+	  		  $("#tempmax").text(data.fcst_day_0.tmax);
+	  		  $("#temps_actuel").attr("src",data.current_condition.icon);
+		 }
+	 });
+
+  });
+
+	$("#j1").click(function(){
+>>>>>>> 6e58fb84c968db3ea1a6529622f1ec4ee5d6a7f5
 
 		$jq.ajax({
 		  type:'GET',
