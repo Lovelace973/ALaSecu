@@ -296,18 +296,6 @@
             <div id="stream0" class="col-sm-6 col-lg-3 caseJeu">
                 <div class="card text-white bg-flat-color-1">
                     <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton1" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
                         <h4 class="mb-0">
                             <span class="viewer-count"></span>
                         </h4>
@@ -326,18 +314,6 @@
             <div id="stream1" class="col-sm-6 col-lg-3 caseJeu">
                 <div class="card text-white bg-flat-color-2">
                     <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton2" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
                         <h4 class="mb-0">
                             <span class= "viewer-count"></span>
                         </h4>
@@ -355,18 +331,6 @@
             <div id="stream2" class="col-sm-6 col-lg-3 caseJeu">
                 <div class="card text-white bg-flat-color-3">
                     <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton3" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
                         <h4 class="mb-0">
                             <span class="viewer-count"></span>
                         </h4>
@@ -384,18 +348,6 @@
             <div id="stream3" class="col-sm-6 col-lg-3 caseJeu">
                 <div class="card text-white bg-flat-color-4">
                     <div class="card-body pb-0">
-                        <div class="dropdown float-right">
-                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton4" data-toggle="dropdown">
-                                <i class="fa fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                                <div class="dropdown-menu-content">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                        </div>
                         <h4 class="mb-0">
                             <span class="viewer-count"></span>
                         </h4>
@@ -431,6 +383,13 @@
                            </div>
 
                        </div>
+                 </div>
+                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                     <div class="dropdown-menu-content">
+                         <a class="dropdown-item" id="j1">J+1</a>
+                         <a class="dropdown-item" id="j2">J+2</a>
+                         <a class="dropdown-item" id="j3">J+3</a>
+                     </div>
                  </div>
               </div>
             </div>
@@ -498,9 +457,6 @@
     <script src="template_bootstrap/assets/js/main.js"></script>
 
 
-    <script src="template_bootstrap/vendors/chart.js/dist/Chart.bundle.min.js"></script>
-    <script src="template_bootstrap/assets/js/dashboard.js"></script>
-    <script src="template_bootstrap/assets/js/widgets.js"></script>
     <script src="template_bootstrap/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
     <script src="template_bootstrap/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <script src="template_bootstrap/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
@@ -520,6 +476,37 @@
                 scaleColors: ['#1de9b6', '#03a9f5'],
                 normalizeFunction: 'polynomial'
             });
+        })(jQuery);
+    </script>
+
+    <script>
+        (function($) {
+            "use strict";
+                $(".caseJeu").click(function(){
+                			console.log("ALLO ");
+                				//console.log($("."+$(this).attr("class")).children());
+                			var game_name = ((($(this).find(".card")).find(".card-body")).find("p").text());
+                			$.ajax({
+                						type:'GET',
+                						url : "https://api.twitch.tv/kraken/streams/?game="+game_name,
+                						headers :{
+                							"Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
+                						},
+                						async:false,
+                						cache:false,
+                						dataType:"json",
+                						success:function(data){
+                							$("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
+                							$("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
+                							$("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
+                							document.getElementById('lecteurTwitch1').src = document.getElementById('lecteurTwitch1').src
+                							document.getElementById('lecteurTwitch2').src = document.getElementById('lecteurTwitch2').src
+                							document.getElementById('lecteurTwitch3').src = document.getElementById('lecteurTwitch3').src
+                						}
+                					});
+                			$("#carouselExampleIndicators").show();
+                			$("#carouselExampleIndicators").carousel();
+                });
         })(jQuery);
     </script>
 
