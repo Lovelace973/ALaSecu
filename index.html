@@ -364,19 +364,30 @@
             <div class="col-xl-6">
                 <div class="col-sm-6 col-lg-7" id=meteo>
                  <div class="card text-white bg-flat-color-2">
-                       <div class="card-body pb-0">
+                    <div class="card-body pb-0">
+                     <div class="dropdown float-right">
+                            <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton1" data-toggle="dropdown">
+                                <i class="fa fa-cog"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <div class="dropdown-menu-content">
+                                    <a class="dropdown-item" id="meteo">Prévisions pour Aujourd'hui</a>
+                                    <a class="dropdown-item" id="j1">Prévisions pour J+1</a>
+                                    <a class="dropdown-item" id="j2">Prévisions pour J+2</a>
+                                </div>
+                            </div>
+                        </div>
                            <h4 class="mb-0">
                               <span class="text-light" id="city_info"></span>
                            </h4>
                            <h5>
+                              <span>
                               <span id="temp"></span>
+                              <span>°C - max </span>
+                              <span id="tempmax"></span>
+                              <span>°C</span>
                            </h5>
                            <img id="temps_actuel" />
-                           <p></p>
-                           <span>Lever du soleil : </span>
-                           <span id="sunrise"></span>
-                           <span>   Coucher du soleil : </span>
-                           <span id="sunset"></span>
 
                            <div class="chart-wrapper px-3" style="height:70px;" height="70">
                               <canvas id="widgetChart4"></canvas>
@@ -384,13 +395,7 @@
 
                        </div>
                  </div>
-                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                     <div class="dropdown-menu-content">
-                         <a class="dropdown-item" id="j1">J+1</a>
-                         <a class="dropdown-item" id="j2">J+2</a>
-                         <a class="dropdown-item" id="j3">J+3</a>
-                     </div>
-                 </div>
+
               </div>
             </div>
 

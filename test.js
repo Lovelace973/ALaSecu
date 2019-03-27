@@ -69,9 +69,8 @@ $jq(document).ready(function($){
 		  console.log(data.city_info.name);
 		  $("#city_info").text(data.city_info.name);
 		  $("#temp").text(data.current_condition.tmp);
+		  $("#tempmax").text(data.fcst_day_0.tmax);
 		  $("#temps_actuel").attr("src",data.current_condition.icon);
-		  $("#sunrise").text(data.city_info.sunrise);
-		  $("#sunset").text(data.city_info.sunset);
 	  }
   });
 
@@ -87,10 +86,9 @@ $jq(document).ready(function($){
 		  success:function(data){
 			  console.log(data.city_info.name);
 			  $("#city_info").text(data.city_info.name);
-			  $("#temp").text(data.current_condition.tmp);
-			  $("#temps_actuel").attr("src",data.current_condition.icon);
-			  $("#sunrise").text(data.city_info.sunrise);
-			  $("#sunset").text(data.city_info.sunset);
+			  $("#temp").text(data.fcst_day_1.tmin);
+			  $("#tempmax").text(data.fcst_day_1.tmax);
+			  $("#temps_actuel").attr("src",data.fcst_day_1.icon);
 		  }
 	  });
 
