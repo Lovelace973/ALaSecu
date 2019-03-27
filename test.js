@@ -1,14 +1,11 @@
 var $jq = jQuery.noConflict();
-$jq(document).ready(function($){
+$jq(document).ready(function(){
 
-	$("#carouselExampleIndicators").hide();
+	$jq(".caseJeu").click(changeGame);
 
-  	$(".col-sm-6").click(function(){
-   	$("#carouselExampleIndicators").show();
-   	$("#carouselExampleIndicators").carousel();
-  	})
+	$jq("#carouselExampleIndicators").hide();
 
-  $.ajax({
+  $jq.ajax({
     type:'POST',
     url : "https://id.twitch.tv/oauth2/token?client_id=hdiebqr67mptvyg1v6ayhbry1njc5q&client_secret=u3j0i8gj4ci24qydbmjr8o2idqdze8&grant_type=client_credentials",
     data : "",
@@ -24,7 +21,7 @@ $jq(document).ready(function($){
 
   var top = null;
 
-  $.ajax({
+  $jq.ajax({
         type:'GET',
         url : "https://api.twitch.tv/kraken/games/top",
         headers :{
@@ -50,15 +47,15 @@ $jq(document).ready(function($){
 
           var ite = 0;
 
-          $(".game-name").each(function(num){
-            $('.game-name').eq(ite).text(data.top[ite].game.name);
-            $('.viewer-count').eq(ite).text(data.top[ite].viewers);
+          $jq(".game-name").each(function(num){
+            $jq('.game-name').eq(ite).text(data.top[ite].game.name);
+            $jq('.viewer-count').eq(ite).text(data.top[ite].viewers);
             ite++;
           });
         }
   });
 
-  $.ajax({
+  $jq.ajax({
 	  type:'GET',
 	  url : "https://www.prevision-meteo.ch/services/json/mans",
 	  data : "",
@@ -67,16 +64,16 @@ $jq(document).ready(function($){
 	  dataType:"json",
 	  success:function(data){
 		  console.log(data.city_info.name);
-		  $("#city_info").text(data.city_info.name);
-		  $("#temp").text(data.current_condition.tmp);
-		  $("#tempmax").text(data.fcst_day_0.tmax);
-		  $("#temps_actuel").attr("src",data.current_condition.icon);
+		  $jq("#city_info").text(data.city_info.name);
+		  $jq("#temp").text(data.current_condition.tmp);
+		  $jq("#tempmax").text(data.fcst_day_0.tmax);
+		  $jq("#temps_actuel").attr("src",data.current_condition.icon);
 	  }
   });
 
-	$("#j1").click(function(){
+	$jq("#j1").click(function(){
 
-		$.ajax({
+		$jq.ajax({
 		  type:'GET',
 		  url : "https://www.prevision-meteo.ch/services/json/mans",
 		  data : "",
@@ -85,12 +82,35 @@ $jq(document).ready(function($){
 		  dataType:"json",
 		  success:function(data){
 			  console.log(data.city_info.name);
-			  $("#city_info").text(data.city_info.name);
-			  $("#temp").text(data.fcst_day_1.tmin);
-			  $("#tempmax").text(data.fcst_day_1.tmax);
-			  $("#temps_actuel").attr("src",data.fcst_day_1.icon);
+			  $jq("#city_info").text(data.city_info.name);
+			  $jq("#temp").text(data.fcst_day_1.tmin);
+			  $jq("#tempmax").text(data.fcst_day_1.tmax);
+			  $jq("#temps_actuel").attr("src",data.fcst_day_1.icon);
 		  }
 	  });
 
 	});
 });
+
+function changeGame(){
+				console.log("ALLO ");
+					//console.log($("."+$(this).attr("class")).children());
+				var game_name = ((($jq(this).find(".card")).find(".card-body")).find("p").text());
+				$jq.ajax({
+							type:'GET',
+							url : "https://api.twitch.tv/kraken/streams/?game="+game_name,
+							headers :{
+								"Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
+							},
+							async:false,
+							cache:false,
+							dataType:"json",
+							success:function(data){
+								$jq("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
+								$jq("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
+								$jq("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
+							}
+						});
+				$jq("#carouselExampleIndicators").show();
+				$jq("#carouselExampleIndicators").carousel();
+}

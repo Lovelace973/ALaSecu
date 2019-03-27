@@ -2372,6 +2372,10 @@ header .form-inline {
         -ms-flex: none;
             flex: none; } }
 
+#carouselExampleIndicators{
+  max-height: 1px;
+}
+
 @media (max-width: 575.99px) {
   body {
     display: block; }
