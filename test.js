@@ -1,4 +1,5 @@
 var $jq = jQuery.noConflict();
+var meteo = null;
 $jq(document).ready(function(){
 
 	$jq(".caseJeu").click(changeGame);
@@ -68,61 +69,30 @@ $jq(document).ready(function(){
 		  $jq("#temp").text(data.current_condition.tmp);
 		  $jq("#tempmax").text(data.fcst_day_0.tmax);
 		  $jq("#temps_actuel").attr("src",data.current_condition.icon);
+			meteo = data;
 	  }
   });
 
   $jq("#j0").click(function(){
-	  $jq.ajax({
-		 type:'GET',
-		 url : "https://www.prevision-meteo.ch/services/json/mans",
-		 data : "",
-		 async:false,
-		 cache:false,
-		 dataType:"json",
-		 success:function(data){
-			  console.log(data.city_info.name);
-	  		  $jq("#city_info").text(data.city_info.name);
-	  		  $jq("#temp").text(data.current_condition.tmp);
-	  		  $jq("#tempmax").text(data.fcst_day_0.tmax);
-	  		  $jq("#temps_actuel").attr("src",data.current_condition.icon);
-		 }
-	 });
+	  		  $jq("#city_info").text(meteo.city_info.name);
+	  		  $jq("#temp").text(meteo.current_condition.tmp);
+	  		  $jq("#tempmax").text(meteo.fcst_day_0.tmax);
+	  		  $jq("#temps_actuel").attr("src",meteo.current_condition.icon);
  });
 
 	$jq("#j1").click(function(){
-		$jq.ajax({
-		  type:'GET',
-		  url : "https://www.prevision-meteo.ch/services/json/mans",
-		  data : "",
-		  async:false,
-		  cache:false,
-		  dataType:"json",
-		  success:function(data){
-			  console.log(data.city_info.name);
-			  $jq("#city_info").text(data.city_info.name);
-			  $jq("#temp").text(data.fcst_day_1.tmin);
-			  $jq("#tempmax").text(data.fcst_day_1.tmax);
-			  $jq("#temps_actuel").attr("src",data.fcst_day_1.icon);
-		  }
-	  });
+
+			  $jq("#city_info").text(meteo.city_info.name);
+			  $jq("#temp").text("min : "+meteo.fcst_day_1.tmin);
+			  $jq("#tempmax").text(meteo.fcst_day_1.tmax);
+			  $jq("#temps_actuel").attr("src",meteo.fcst_day_1.icon);
 	});
 
 	$jq("#j2").click(function(){
-		$jq.ajax({
-		  type:'GET',
-		  url : "https://www.prevision-meteo.ch/services/json/mans",
-		  data : "",
-		  async:false,
-		  cache:false,
-		  dataType:"json",
-		  success:function(data){
-			  console.log(data.city_info.name);
-			  $jq("#city_info").text(data.city_info.name);
-			  $jq("#temp").text(data.fcst_day_2.tmin);
-			  $jq("#tempmax").text(data.fcst_day_2.tmax);
-			  $jq("#temps_actuel").attr("src",data.fcst_day_2.icon);
-		  }
-	  });
+			  $jq("#city_info").text(meteo.city_info.name);
+			  $jq("#temp").text("min : "+meteo.fcst_day_2.tmin);
+			  $jq("#tempmax").text(meteo.fcst_day_2.tmax);
+			  $jq("#temps_actuel").attr("src",meteo.fcst_day_2.icon);
 	});
 });
 
