@@ -71,9 +71,8 @@ $jq(document).ready(function(){
 	  }
   });
 
-  $("#j0").click(function(){
-
-	  $.ajax({
+  $jq("#j0").click(function(){
+	  $jq.ajax({
 		 type:'GET',
 		 url : "https://www.prevision-meteo.ch/services/json/mans",
 		 data : "",
@@ -82,16 +81,15 @@ $jq(document).ready(function(){
 		 dataType:"json",
 		 success:function(data){
 			  console.log(data.city_info.name);
-	  		  $("#city_info").text(data.city_info.name);
-	  		  $("#temp").text(data.current_condition.tmp);
-	  		  $("#tempmax").text(data.fcst_day_0.tmax);
-	  		  $("#temps_actuel").attr("src",data.current_condition.icon);
+	  		  $jq("#city_info").text(data.city_info.name);
+	  		  $jq("#temp").text(data.current_condition.tmp);
+	  		  $jq("#tempmax").text(data.fcst_day_0.tmax);
+	  		  $jq("#temps_actuel").attr("src",data.current_condition.icon);
 		 }
 	 });
+ });
 
-  });
-
-	$("#j1").click(function(){
+	$jq("#j1").click(function(){
 		$jq.ajax({
 		  type:'GET',
 		  url : "https://www.prevision-meteo.ch/services/json/mans",
@@ -107,7 +105,24 @@ $jq(document).ready(function(){
 			  $jq("#temps_actuel").attr("src",data.fcst_day_1.icon);
 		  }
 	  });
+	});
 
+	$jq("#j2").click(function(){
+		$jq.ajax({
+		  type:'GET',
+		  url : "https://www.prevision-meteo.ch/services/json/mans",
+		  data : "",
+		  async:false,
+		  cache:false,
+		  dataType:"json",
+		  success:function(data){
+			  console.log(data.city_info.name);
+			  $jq("#city_info").text(data.city_info.name);
+			  $jq("#temp").text(data.fcst_day_2.tmin);
+			  $jq("#tempmax").text(data.fcst_day_2.tmax);
+			  $jq("#temps_actuel").attr("src",data.fcst_day_2.icon);
+		  }
+	  });
 	});
 });
 
