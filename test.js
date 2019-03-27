@@ -1,4 +1,5 @@
-jQuery(document).ready(function($){
+var $jq = jQuery.noConflict();
+$jq(document).ready(function($){
 
 	$("#carouselExampleIndicators").hide();
 
@@ -22,36 +23,6 @@ jQuery(document).ready(function($){
   });
 
   var top = null;
-
-  $(".caseJeu").each(function(i, obj) {
-    console.log(obj);
-      obj.click(function(){
-        console.log("ALLO ");
-          //console.log($("."+$(this).attr("class")).children());
-        var game_name = ((($(this).find(".card")).find(".card-body")).find("p").text());
-        channelName=null;
-        $.ajax({
-              type:'GET',
-              url : "https://api.twitch.tv/kraken/streams/?game="+game_name,
-              headers :{
-                "Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
-              },
-              async:false,
-              cache:false,
-              dataType:"json",
-              success:function(data){
-                $("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
-                $("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
-                $("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
-                document.getElementById('lecteurTwitch1').src = document.getElementById('lecteurTwitch1').src
-                document.getElementById('lecteurTwitch2').src = document.getElementById('lecteurTwitch2').src
-                document.getElementById('lecteurTwitch3').src = document.getElementById('lecteurTwitch3').src
-              }
-            });
-        $("#carouselExampleIndicators").show();
-        $("#carouselExampleIndicators").carousel();
-      });
-  });
 
   $.ajax({
         type:'GET',
@@ -98,9 +69,28 @@ jQuery(document).ready(function($){
 		  console.log(data.city_info.name);
 		  $("#city_info").text(data.city_info.name);
 		  $("#temp").text(data.current_condition.tmp);
+		  $("#tempmax").text(data.fcst_day_0.tmax);
 		  $("#temps_actuel").attr("src",data.current_condition.icon);
-		  $("#sunrise").text(data.city_info.sunrise);
-		  $("#sunset").text(data.city_info.sunset);
 	  }
   });
+
+	$("#j1").click(function(){
+
+		$.ajax({
+		  type:'GET',
+		  url : "https://www.prevision-meteo.ch/services/json/mans",
+		  data : "",
+		  async:false,
+		  cache:false,
+		  dataType:"json",
+		  success:function(data){
+			  console.log(data.city_info.name);
+			  $("#city_info").text(data.city_info.name);
+			  $("#temp").text(data.fcst_day_1.tmin);
+			  $("#tempmax").text(data.fcst_day_1.tmax);
+			  $("#temps_actuel").attr("src",data.fcst_day_1.icon);
+		  }
+	  });
+
+	});
 });
