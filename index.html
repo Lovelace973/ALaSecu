@@ -475,37 +475,6 @@
         })(jQuery);
     </script>
 
-    <script>
-        (function($) {
-            "use strict";
-                $(".caseJeu").click(function(){
-                			console.log("ALLO ");
-                				//console.log($("."+$(this).attr("class")).children());
-                			var game_name = ((($(this).find(".card")).find(".card-body")).find("p").text());
-                			$.ajax({
-                						type:'GET',
-                						url : "https://api.twitch.tv/kraken/streams/?game="+game_name,
-                						headers :{
-                							"Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
-                						},
-                						async:false,
-                						cache:false,
-                						dataType:"json",
-                						success:function(data){
-                							$("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
-                							$("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
-                							$("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
-                							document.getElementById('lecteurTwitch1').src = document.getElementById('lecteurTwitch1').src
-                							document.getElementById('lecteurTwitch2').src = document.getElementById('lecteurTwitch2').src
-                							document.getElementById('lecteurTwitch3').src = document.getElementById('lecteurTwitch3').src
-                						}
-                					});
-                			$("#carouselExampleIndicators").show();
-                			$("#carouselExampleIndicators").carousel();
-                });
-        })(jQuery);
-    </script>
-
         <script src="test.js"></script>
 
 </body>

@@ -71,9 +71,6 @@ $jq(document).ready(function(){
 	  }
   });
 
-<<<<<<< HEAD
-	$jq("#j1").click(function(){
-=======
   $("#j0").click(function(){
 
 	  $.ajax({
@@ -95,8 +92,6 @@ $jq(document).ready(function(){
   });
 
 	$("#j1").click(function(){
->>>>>>> 6e58fb84c968db3ea1a6529622f1ec4ee5d6a7f5
-
 		$jq.ajax({
 		  type:'GET',
 		  url : "https://www.prevision-meteo.ch/services/json/mans",
