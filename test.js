@@ -147,6 +147,12 @@ $jq("#zipForm input").keypress(function(event){
            type: "GET",
            success: function(result, success) {
 				  	console.log(result.places[0]);
+					var lat = result.places[0].latitude;
+					lat = Math.round(lat*1000)/1000
+					console.log(lat);
+					var long = result.places[0].longitude;
+					long = Math.round(long*1000)/1000
+					console.log(long);
 			  	}
         });
 	}
