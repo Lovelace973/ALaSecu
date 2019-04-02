@@ -128,6 +128,33 @@ $jq.ajax({
 	});
 });
 
+
+//BARRE DE RECHERCHE VILLE :
+  // OnKeyDown Function
+$jq("#zipForm input").keypress(function(event){
+	var keycode = (event.keyCode ? event.keyCode : event.which);
+	if(keycode == '13'){
+		console.log($jq(this).val());
+     var zip_in = $jq(this);
+     var zip_box = $jq('#zipbox');
+        // Make HTTP Request
+        $jq.ajax({
+           url: "http://api.zippopotam.us/fr/" + $jq(this).val(),
+			  data:"",
+			  async:false,
+           cache: false,
+           dataType: "json",
+           type: "GET",
+           success: function(result, success) {
+				  	console.log(result.places[0]);
+			  	}
+        });
+	}
+});
+
+$jq("#zipForm").submit(function(event){
+	event.preventDefault();
+});
 $jq.ajax({
 	type:'GET',
 	url:"http://api.zippopotam.us/FR/"+zip,
@@ -176,38 +203,4 @@ var T = new Twit({
 T.get('followers/ids', { screen_name: 'tolga_tezel' },  function (err, data, response) {
   console.log(data)
 })
-
-
-
-//BARRE DE RECHERCHE VILLE :
-
-$jq(function() {
-
-
-  // OnKeyDown Function
-  $jq("#zip").keyup(function() {
-     var zip_in = $jq(this);
-     var zip_box = $jq('#zipbox');
-
-     if (zip_in.val().length < 5) {
-        zip_box.removeClass('error success');
-     } else if (zip_in.val().length > 5) {
-        zip_box.addClass('error').removeClass('success');
-     } else if ((zip_in.val().length == 5)) {
-
-        // Make HTTP Request
-        $jq.ajax({
-           url: "http://api.zippopotam.us/fr/" + zip_in.val(),
-			  data:"",
-			  async:false,
-           cache: false,
-           dataType: "json",
-           type: "GET",
-           success: function(result, success) {
-				  console.log(data)
-			  }
-        });
-     }
-  });
-});
 */
