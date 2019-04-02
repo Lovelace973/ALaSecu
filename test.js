@@ -144,3 +144,18 @@ function changeGame(){
 				$jq("#carouselExampleIndicators").show();
 				$jq("#carouselExampleIndicators").carousel();
 }
+
+
+var Twit = require('twit');
+
+var T = new Twit({
+  consumer_key:         'BEXhqTckFvyOtXhJmeJNIN9O2',
+  consumer_secret:      'iWjczPSD9L8DnbZ9efzlPgDZuJtsZkJV6vmr3ENNTPaiyXqDYY',
+  access_token:         '4517086245-9v5U2JrNoaoFu2zHxHx8JDPgmBLxE6klAgfQOfU',
+  access_token_secret:  'KvaQO4OQaw8rLc2TgXzUmQQ3oAien6A5L2MlJw4W3wb4v',
+  timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
+  strictSSL:            true,     // optional - requires SSL certificates to be valid.
+})
+T.get('followers/ids', { screen_name: 'tolga_tezel' },  function (err, data, response) {
+  console.log(data)
+})
