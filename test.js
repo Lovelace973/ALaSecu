@@ -75,7 +75,7 @@ $jq.ajax({
 						img = img.replace("{height}",	$jq('.game-name').eq(ite).siblings(".chart-wrapper").height());
 						console.log(img);
 						$jq('.game-name').eq(ite).siblings(".chart-wrapper").css("background-image","url("+img+")");
-						$jq('.game-name').eq(ite).siblings(".chart-wrapper").css("opacity","0.25");
+						$jq('.game-name').eq(ite).siblings(".chart-wrapper").css("opacity","0.70");
             ite++;
           });
         }
