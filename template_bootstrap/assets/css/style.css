@@ -981,8 +981,9 @@ button:focus {
 
 img {
   max-width: 200%;
-  margin_top: 0;
-  text_align: center;}
+
+  text_align: center;
+}
 
 .btn,
 button,
@@ -1050,7 +1051,7 @@ aside.left-panel {
     .navbar .navbar-brand span {
       font-weight: 600; }
     .navbar .navbar-brand img {
-      max-width: 160px; }
+      max-width: 200px; }
     .navbar .navbar-brand.hidden {
       display: none; }
   .navbar .menu-title {
@@ -1196,8 +1197,8 @@ body.open .navbar .navbar-brand.hidden {
       padding-right: 0;
       text-align: center; }
       .open aside.left-panel .navbar .navbar-brand.hidden img {
-        max-width: 30px;
-        margin: 0 auto; }
+        max-width: 800px;
+         }
     .open aside.left-panel .navbar .navbar-brand.d-md-none {
       display: block !important;
       margin: 13px 0 0;
@@ -2336,8 +2337,8 @@ header .form-inline {
   .twt-feed {
     max-height: 155px; }
     .twt-feed img {
-      height: 75px;
-      width: 75px; }
+      height: 160px;
+      width: 160px; }
   .stat-widget-one .stat-content {
     margin-left: 15px; }
   .card-body {
