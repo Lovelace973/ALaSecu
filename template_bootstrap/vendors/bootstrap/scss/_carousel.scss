@@ -9,11 +9,12 @@
 //    is the upcoming slide in transition.
 
 .carousel {
+  display: inline-block;
   position: relative;
 }
 
 .carousel-inner {
-  position: relative;
+
   width: 100%;
   overflow: hidden;
 }

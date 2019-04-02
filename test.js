@@ -70,6 +70,12 @@ $jq.ajax({
           $jq(".game-name").each(function(num){
             $jq('.game-name').eq(ite).text(data.top[ite].game.name);
             $jq('.viewer-count').eq(ite).text(data.top[ite].viewers);
+						var img = data.top[ite].game.box.template;
+						img = img.replace("{width}",	$jq('.game-name').eq(ite).siblings(".chart-wrapper").width());
+						img = img.replace("{height}",	$jq('.game-name').eq(ite).siblings(".chart-wrapper").height());
+						console.log(img);
+						$jq('.game-name').eq(ite).siblings(".chart-wrapper").css("background-image","url("+img+")");
+						$jq('.game-name').eq(ite).siblings(".chart-wrapper").css("opacity","0.25");
             ite++;
           });
         }
@@ -123,7 +129,6 @@ $jq.ajax({
 });
 
 function changeGame(){
-				console.log("ALLO ");
 					//console.log($("."+$(this).attr("class")).children());
 				var game_name = ((($jq(this).find(".card")).find(".card-body")).find("p").text());
 				$jq.ajax({
@@ -141,7 +146,7 @@ function changeGame(){
 								$jq("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
 							}
 						});
-				$jq("#carouselExampleIndicators").show();
+				$jq("#carouselExampleIndicators").css("display","inline-block");
 				$jq("#carouselExampleIndicators").carousel();
 }
 

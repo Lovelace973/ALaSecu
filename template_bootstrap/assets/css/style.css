@@ -1551,6 +1551,7 @@ header .form-inline {
   display: block; }
 
 .content {
+  display: inline-block;
   float: left;
   padding: 0 20px;
   width: 100%; }
@@ -2373,9 +2374,6 @@ header .form-inline {
         -ms-flex: none;
             flex: none; } }
 
-#carouselExampleIndicators{
-  max-height: 1px;
-}
 
 @media (max-width: 575.99px) {
   body {
