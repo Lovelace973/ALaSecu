@@ -35,7 +35,6 @@
 
 <body>
 
-
     <!-- Left Panel -->
 
     <aside id="left-panel" class="left-panel">
@@ -214,7 +213,12 @@
                               <span id="tempmax"></span>
                            </h5>
                            <img id="temps_actuel" />
-
+                           <div id="zipbox" class="control-group">
+                              <label for="zip">Code Postal</label>
+                              <form method="get" id="zip">
+                                 <input type="text" class='' pattern="[0-9]*" name="zip" id="zip" placeholder="Tapez votre code postal"/>
+                              </form>
+                           </div>
                            <div class="chart-wrapper px-3" style="height:70px;" height="70">
                               <canvas id="widgetChart4"></canvas>
                            </div>

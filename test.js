@@ -122,6 +122,18 @@ $jq.ajax({
 	});
 });
 
+$jq.ajax({
+	type:'GET',
+	url:"http://api.zippopotam.us/FR/"+zip,
+	data:"",
+	async:false,
+	cache:false,
+	datatype:"json",
+	success:function(data) {
+		console.log(data);
+	}
+});
+
 function changeGame(){
 				console.log("ALLO ");
 					//console.log($("."+$(this).attr("class")).children());
@@ -145,7 +157,7 @@ function changeGame(){
 				$jq("#carouselExampleIndicators").carousel();
 }
 
-
+/*
 var Twit = require('twit');
 
 var T = new Twit({
@@ -159,3 +171,38 @@ var T = new Twit({
 T.get('followers/ids', { screen_name: 'tolga_tezel' },  function (err, data, response) {
   console.log(data)
 })
+
+
+
+//BARRE DE RECHERCHE VILLE :
+
+$jq(function() {
+
+
+  // OnKeyDown Function
+  $jq("#zip").keyup(function() {
+     var zip_in = $jq(this);
+     var zip_box = $jq('#zipbox');
+
+     if (zip_in.val().length < 5) {
+        zip_box.removeClass('error success');
+     } else if (zip_in.val().length > 5) {
+        zip_box.addClass('error').removeClass('success');
+     } else if ((zip_in.val().length == 5)) {
+
+        // Make HTTP Request
+        $jq.ajax({
+           url: "http://api.zippopotam.us/fr/" + zip_in.val(),
+			  data:"",
+			  async:false,
+           cache: false,
+           dataType: "json",
+           type: "GET",
+           success: function(result, success) {
+				  console.log(data)
+			  }
+        });
+     }
+  });
+});
+*/
