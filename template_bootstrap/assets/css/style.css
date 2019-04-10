@@ -1010,7 +1010,7 @@ aside.left-panel {
   min-height: 100%;
   padding: 0 25px;
   vertical-align: top;
-  width: 280px;
+  width: 150px;
   -webkit-transition:width 0.3s ease;
   transition: width 0.3s ease; }
 
@@ -1051,7 +1051,7 @@ aside.left-panel {
     .navbar .navbar-brand span {
       font-weight: 600; }
     .navbar .navbar-brand img {
-      max-width: 200px; }
+      max-width: 150px; }
     .navbar .navbar-brand.hidden {
       display: none; }
   .navbar .menu-title {

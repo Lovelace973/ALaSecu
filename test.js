@@ -1,5 +1,8 @@
 var $jq = jQuery.noConflict();
 var meteo = null;
+var lat = 48.000;
+var long = 0.200;
+var meteo_url = "http://www.prevision-meteo.ch/services/json/mans";
 $jq(document).ready(function(){
 
 	$jq(".caseJeu").click(changeGame);
@@ -97,7 +100,7 @@ $jq.ajax({
 						img = img.replace("{height}",	$jq('.game-name').eq(ite).siblings(".chart-wrapper").height());
 						console.log(img);
 						$jq('.game-name').eq(ite).siblings(".chart-wrapper").css("background-image","url("+img+")");
-						$jq('.game-name').eq(ite).siblings(".chart-wrapper").css("opacity","0.25");
+						$jq('.game-name').eq(ite).siblings(".chart-wrapper").css("opacity","0.70");
             ite++;
           });
         }
@@ -105,7 +108,7 @@ $jq.ajax({
 
   $jq.ajax({
 	  type:'GET',
-	  url : "https://www.prevision-meteo.ch/services/json/mans",
+	  url : ""+meteo_url,
 	  data : "",
 	  async:false,
 	  cache:false,
@@ -168,7 +171,34 @@ $jq("#zipForm input").keypress(function(event){
            dataType: "json",
            type: "GET",
            success: function(result, success) {
+<<<<<<< HEAD
 				  	console.log(result.places[0]);q
+=======
+				  	console.log(result.places[0]);
+					lat = result.places[0].latitude;
+					lat = Math.round(lat*1000)/1000;
+					console.log(lat);
+					long = result.places[0].longitude;
+					long = Math.round(long*1000)/1000;
+					console.log(long);
+					meteo_url = "http://www.prevision-meteo.ch/services/json/lat="+lat+"lng="+long;
+					$jq.ajax({
+						type:'GET',
+						url : ""+meteo_url,
+						data : "",
+						async:false,
+						cache:false,
+						dataType:"json",
+						success:function(data){
+							console.log(data.city_info.name);
+							$jq("#city_info").text(data.city_info.name);
+							$jq("#temp").text("Maintenant "+data.current_condition.tmp+"°C - Max ");
+							$jq("#tempmax").text(data.fcst_day_0.tmax+"°C");
+							$jq("#temps_actuel").attr("src",data.current_condition.icon_big);
+							meteo = data;
+						}
+					});
+>>>>>>> 44c2eb72739998392d3e1a3cd006c59b150be376
 			  	}
         });
 	}
