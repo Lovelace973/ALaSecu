@@ -171,9 +171,6 @@ $jq("#zipForm input").keypress(function(event){
            dataType: "json",
            type: "GET",
            success: function(result, success) {
-<<<<<<< HEAD
-				  	console.log(result.places[0]);q
-=======
 				  	console.log(result.places[0]);
 					lat = result.places[0].latitude;
 					lat = Math.round(lat*1000)/1000;
@@ -198,7 +195,6 @@ $jq("#zipForm input").keypress(function(event){
 							meteo = data;
 						}
 					});
->>>>>>> 44c2eb72739998392d3e1a3cd006c59b150be376
 			  	}
         });
 	}
