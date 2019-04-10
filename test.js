@@ -39,11 +39,29 @@ $jq.ajax({
 				console.log(error);
 			}
 });
+
+$jq.ajax({
+			type:'GET',
+			url : "http://localhost:3000/?tweets=ZeratoR",
+			data : "",
+			async:false,
+			cache:false,
+			dataType:"json",
+			xhrFields: {
+				withCredentials: true
+			},
+			success:function(data){
+				console.log(data);
+			},
+			error:function(error){
+				console.log(error);
+			}
+});
   var top = null;
 
   $jq.ajax({
         type:'GET',
-        url : "https://api.twitch.tv/kraken/games/top",
+        url : "http://localhost:3000/?topStreams=true",
         headers :{
           "Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
         },
@@ -51,7 +69,11 @@ $jq.ajax({
         async:false,
         cache:false,
         dataType:"json",
+				xhrFields: {
+    			withCredentials: true
+				},
         success:function(data){
+					console.log(data);
           var viewer = 0;
           top = data.top;
           data.top.forEach(function(element) {
@@ -146,7 +168,7 @@ $jq("#zipForm input").keypress(function(event){
            dataType: "json",
            type: "GET",
            success: function(result, success) {
-				  	console.log(result.places[0]);
+				  	console.log(result.places[0]);q
 			  	}
         });
 	}
