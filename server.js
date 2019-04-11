@@ -2,6 +2,7 @@ var Twit = require('twit')
 const url = require('url');
 const http = require('http');
 var req = require('request');
+var top;
 
 var T = new Twit({
   consumer_key:         'BEXhqTckFvyOtXhJmeJNIN9O2',
@@ -15,12 +16,13 @@ function createServer(){
   const app = http.createServer(function(request, response) {
     var city, query,texts;
     query = url.parse(request.url, true).query;
-    console.log(request.headers);
-    response.writeHead(200, {"Content-Type": "text/html"});
-    response.writeHead(200, {"Access-Control-Allow-Origin": "*"});
-    response.writeHead(200, {"Access-Control-Allow-Credentials": "true"});
-		response.writeHead(200, {"Access-Control-Allow-Methods": "GET,PUT,POST,DELETE"});
-		response.writeHead(200, {"Access-Control-Allow-Headers": "Content-Type"});
+
+    response.writeHead( 200, {"Content-Type": "application/json",
+                              "Access-Control-Allow-Origin": "http://localhost",
+                              "Access-Control-Allow-Credentials": "true",
+		                          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+		                          "Access-Control-Allow-Headers": "Content-Type, Client-ID"});
+    console.log(response);
     if(query.tweets){
       console.log("TWEETS");
       texts = getTweets(query.tweets);
@@ -33,7 +35,21 @@ function createServer(){
       });
     }else if(query.topStreams){
       console.log("TOP STREAMS");
-      texts = getTopStreams();
+      if(!top){
+        texts = getTopStreams();
+        texts.then(function(result){
+          //console.log(JSON.stringify(result));
+          response.write(JSON.stringify(result));
+          response.end();
+        },function(err){
+          console.log(err);
+        });
+      }else{
+        response.write(JSON.stringify(top));
+        response.end();
+      }
+    }else if(query.stream){
+      texts = getStream(query.stream);
       texts.then(function(result){
         //console.log(JSON.stringify(result));
         response.write(JSON.stringify(result));
@@ -44,6 +60,7 @@ function createServer(){
     }
 
   });
+  setInterval(getTopStreams, 300000);
   app.listen(3000);
 }
 
@@ -78,10 +95,30 @@ function getTopStreams(){
             if (err) {
                 reject(err);
             } else {
+                top = JSON.parse(body);
                 resolve(JSON.parse(body));
             }
         })
     });
+}
+function getStream(game_name){
+  return new Promise(function(resolve, reject) {
+    var options = {
+      url: 'https://api.twitch.tv/kraken/streams/?game='+game_name,
+      headers: {
+          "Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
+      }
+    };
+    // Return new promise
+   req.get(options, function(err, resp, body) {
+       console.log(body);
+       if (err) {
+           reject(err);
+       } else {
+           resolve(JSON.parse(body));
+       }
+   })
+ });
 }
 
 createServer();

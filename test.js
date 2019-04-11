@@ -12,7 +12,7 @@ $jq(document).ready(function(){
   $jq.ajax({
     type:'POST',
     url : "https://id.twitch.tv/oauth2/token?client_id=hdiebqr67mptvyg1v6ayhbry1njc5q&client_secret=u3j0i8gj4ci24qydbmjr8o2idqdze8&grant_type=client_credentials",
-    data : "scope=user:read:email",
+    data : "scope=user:read:email", 
     async:false,
     cache:false,
     dataType:"json",
@@ -68,7 +68,7 @@ $jq.ajax({
         headers :{
           "Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
         },
-        data : "&limit="+5,
+        data : "",
         async:false,
         cache:false,
         dataType:"json",
@@ -220,7 +220,7 @@ function changeGame(){
 				var game_name = ((($jq(this).find(".card")).find(".card-body")).find("p").text());
 				$jq.ajax({
 							type:'GET',
-							url : "https://api.twitch.tv/kraken/streams/?game="+game_name,
+							url : "http://localhost:3000/?stream="+game_name,
 							headers :{
 								"Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
 							},
@@ -228,6 +228,7 @@ function changeGame(){
 							cache:false,
 							dataType:"json",
 							success:function(data){
+								console.log(data);
 								$jq("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
 								$jq("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
 								$jq("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
