@@ -2036,6 +2036,12 @@ header .form-inline {
   font-size: 24px;
   color: #373757; }
 
+#tweets{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 100px;
+}
+
 /*    Widget Two
 ---------------------------*/
 .stat-widget-two {

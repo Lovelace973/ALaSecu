@@ -3,6 +3,7 @@ var meteo = null;
 var lat = 48.000;
 var long = 0.200;
 var meteo_url = "http://www.prevision-meteo.ch/services/json/mans";
+var streamers = null;
 $jq(document).ready(function(){
 
 	$jq(".caseJeu").click(changeGame);
@@ -12,7 +13,7 @@ $jq(document).ready(function(){
   $jq.ajax({
     type:'POST',
     url : "https://id.twitch.tv/oauth2/token?client_id=hdiebqr67mptvyg1v6ayhbry1njc5q&client_secret=u3j0i8gj4ci24qydbmjr8o2idqdze8&grant_type=client_credentials",
-    data : "scope=user:read:email", 
+    data : "scope=user:read:email",
     async:false,
     cache:false,
     dataType:"json",
@@ -35,24 +36,6 @@ $jq.ajax({
 			async:false,
 			cache:false,
 			dataType:"json",
-			success:function(data){
-				console.log(data);
-			},
-			error:function(error){
-				console.log(error);
-			}
-});
-
-$jq.ajax({
-			type:'GET',
-			url : "http://localhost:3000/?tweets=ZeratoR",
-			data : "",
-			async:false,
-			cache:false,
-			dataType:"json",
-			xhrFields: {
-				withCredentials: true
-			},
 			success:function(data){
 				console.log(data);
 			},
@@ -232,24 +215,58 @@ function changeGame(){
 								$jq("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
 								$jq("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
 								$jq("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
+								streamers = data;
+								$jq.ajax({
+											type:'GET',
+											url : "http://localhost:3000/?tweets="+data.streams[0].channel.name,
+											data : "",
+											async:false,
+											cache:false,
+											dataType:"json",
+											xhrFields: {
+												withCredentials: true
+											},
+											success:function(data){
+												data.forEach(function(elt){
+													$jq("#tweets").append('<p>'+elt.text+'</p>');
+												});
+
+											},
+											error:function(error){
+												console.log(error);
+											}
+								});
 							}
 						});
 				$jq("#carouselExampleIndicators").css("display","inline-block");
-				$jq("#carouselExampleIndicators").carousel();
+				$jq("#carouselExampleIndicators").carousel("pause");
+				$jq(".carousel-indicators").click(updateTweets);
 }
 
-/*
-var Twit = require('twit');
+function updateTweets(){
+	var num = (($jq(this).find(".active")).attr("data-slide-to"));
+	console.log($jq("#carouselExampleIndicators").find(".carousel-inner").find(".carousel-item").eq(num).find(".chat"));
+	$jq("#carouselExampleIndicators").find(".carousel-inner").find(".carousel-item").eq(num).find(".chat").attr("src","http://www.twitch.tv/embed/"+streamers.streams[num].channel.name+"/chat");
+	$jq.ajax({
+				type:'GET',
+				url : "http://localhost:3000/?tweets="+streamers.streams[num].channel.name,
+				data : "",
+				async:false,
+				cache:false,
+				dataType:"json",
+				xhrFields: {
+					withCredentials: true
+				},
+				success:function(data){
 
-var T = new Twit({
-  consumer_key:         'BEXhqTckFvyOtXhJmeJNIN9O2',
-  consumer_secret:      'iWjczPSD9L8DnbZ9efzlPgDZuJtsZkJV6vmr3ENNTPaiyXqDYY',
-  access_token:         '4517086245-9v5U2JrNoaoFu2zHxHx8JDPgmBLxE6klAgfQOfU',
-  access_token_secret:  'KvaQO4OQaw8rLc2TgXzUmQQ3oAien6A5L2MlJw4W3wb4v',
-  timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
-  strictSSL:            true,     // optional - requires SSL certificates to be valid.
-})
-T.get('followers/ids', { screen_name: 'tolga_tezel' },  function (err, data, response) {
-  console.log(data)
-})
-*/
+						$jq("#tweets").empty();
+					data.forEach(function(elt){
+						$jq("#tweets").append('<p>'+elt.text+'</p>');
+					});
+
+				},
+				error:function(error){
+					console.log(error);
+				}
+	});
+}
