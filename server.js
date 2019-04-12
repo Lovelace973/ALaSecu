@@ -24,7 +24,6 @@ function createServer(){
 		                          "Access-Control-Allow-Headers": "Content-Type, Client-ID"});
     console.log(response);
     if(query.tweets){
-      console.log("TWEETS");
       texts = getTweets(query.tweets);
       texts.then(function(result){
         //console.log(JSON.stringify(result));
@@ -34,7 +33,6 @@ function createServer(){
         console.log(err);
       });
     }else if(query.topStreams){
-      console.log("TOP STREAMS");
       if(!top){
         texts = getTopStreams();
         texts.then(function(result){
@@ -91,7 +89,6 @@ function getTopStreams(){
        };
        // Return new promise
         req.get(options, function(err, resp, body) {
-            console.log(body);
             if (err) {
                 reject(err);
             } else {
@@ -111,7 +108,6 @@ function getStream(game_name){
     };
     // Return new promise
    req.get(options, function(err, resp, body) {
-       console.log(body);
        if (err) {
            reject(err);
        } else {
