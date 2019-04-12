@@ -1,13 +1,14 @@
-Corentin Huaulmé
 Andy Dinga
 Lucien Bouyeure
 Aurélien Dad
+Corentin Huaulmé
 Quentin Gonçalves
 
-TWITCH-STEAM-METEO :
+TWITCH-TWITTER-METEO :
 
 API Twitch : https://dev.twitch.tv/docs/api/
-API Steam : https://developer.valvesoftware.com/wiki/Steam_Web_API#GetGlobalAchievementPercentagesForApp_.28v0001.29
-API Météo : https://openweathermap.org/current
+API Twitter : https://developer.twitter.com/
+API Météo : https://www.prevision-meteo.ch/ , http://zippopotam.us , http://www.geonames.org
 
 Template Boostrap : https://colorlib.com/polygon/sufee/index.html
+
