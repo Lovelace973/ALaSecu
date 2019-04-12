@@ -4,6 +4,7 @@ var lat = 48.000;
 var long = 0.200;
 var meteo_url = "http://www.prevision-meteo.ch/services/json/mans";
 var streamers = null;
+var city_url = "http://api.geonames.org/findNearbyPlaceName?lat=0.19&lng=48.00&username=alasecu";
 $jq(document).ready(function(){
 
 	$jq(".caseJeu").click(changeGame);
@@ -97,11 +98,11 @@ $jq.ajax({
 	  cache:false,
 	  dataType:"json",
 	  success:function(data){
-		  console.log(data.city_info.name);
 		  $jq("#city_info").text(data.city_info.name);
 		  $jq("#temp").text("Maintenant "+data.current_condition.tmp+"°C - Max ");
 		  $jq("#tempmax").text(data.fcst_day_0.tmax+"°C");
 		  $jq("#temps_actuel").attr("src",data.current_condition.icon_big);
+		  $jq("#ville").text("Le Mans");
 			meteo = data;
 	  }
   });
@@ -136,13 +137,11 @@ $jq.ajax({
 	});
 });
 
-
 //BARRE DE RECHERCHE VILLE :
   // OnKeyDown Function
 $jq("#zipForm input").keypress(function(event){
 	var keycode = (event.keyCode ? event.keyCode : event.which);
 	if(keycode == '13'){
-		console.log($jq(this).val());
      var zip_in = $jq(this);
      var zip_box = $jq('#zipbox');
         // Make HTTP Request
@@ -154,14 +153,12 @@ $jq("#zipForm input").keypress(function(event){
            dataType: "json",
            type: "GET",
            success: function(result, success) {
-				  	console.log(result.places[0]);
 					lat = result.places[0].latitude;
 					lat = Math.round(lat*1000)/1000;
-					console.log(lat);
 					long = result.places[0].longitude;
 					long = Math.round(long*1000)/1000;
-					console.log(long);
 					meteo_url = "http://www.prevision-meteo.ch/services/json/lat="+lat+"lng="+long;
+					city_url = "http://api.geonames.org/findNearbyPlaceName?lat="+lat+"&lng="+long+"&username=alasecu";
 					$jq.ajax({
 						type:'GET',
 						url : ""+meteo_url,
@@ -170,12 +167,22 @@ $jq("#zipForm input").keypress(function(event){
 						cache:false,
 						dataType:"json",
 						success:function(data){
-							console.log(data.city_info.name);
 							$jq("#city_info").text(data.city_info.name);
 							$jq("#temp").text("Maintenant "+data.current_condition.tmp+"°C - Max ");
 							$jq("#tempmax").text(data.fcst_day_0.tmax+"°C");
 							$jq("#temps_actuel").attr("src",data.current_condition.icon_big);
 							meteo = data;
+						}
+					});
+					$jq.ajax({
+						type:'GET',
+						url : ""+city_url,
+						data : "",
+						async:false,
+						cache:false,
+						dataType:"xml",
+						success:function(data){
+							$jq("#ville").text(data.getElementsByTagName("name")[0].childNodes[0].data);
 						}
 					});
 			  	}
