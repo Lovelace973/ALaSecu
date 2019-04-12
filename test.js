@@ -3,7 +3,6 @@ var meteo = null;
 var lat = 48.000;
 var long = 0.200;
 var meteo_url = "http://www.prevision-meteo.ch/services/json/mans";
-var streamers = null;
 var city_url = "http://api.geonames.org/findNearbyPlaceName?lat=0.19&lng=48.00&username=alasecu";
 $jq(document).ready(function(){
 
@@ -27,16 +26,198 @@ $jq(document).ready(function(){
 
 
 
+	$jq.ajax({
+				type:'GET',
+				url : "https://api.twitch.tv/helix/users?login=monkikiwi",
+				headers :{
+					"Authorization":"Bearer "+token
+				},
+				data : "",
+				async:false,
+				cache:false,
+				dataType:"json",
+				success:function(data){
+					userID = data.data[0].id;
+				},
+				error:function(error){
+					console.log(error);
+				}
+	});
+
+	var followed = [];
+
+	$jq.ajax({
+				type:'GET',
+				url : "https://api.twitch.tv/helix/users/follows?from_id="+userID,
+				headers :{
+						"Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
+				},
+				data : "&first=100",
+				async:false,
+				cache:false,
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					data.data.forEach(function(element){
+						followed.push(element.to_id)
+					});
+				},
+				error:function(error){
+					console.log(error);
+				}
+	});
+
+	var streamsFromFollowers = "";
+	followed.forEach(function(element){
+		streamsFromFollowers +="&user_id="+element;
+	});
+
+	var liveFollowed = [];
+	var liveFollowedViewers = [];
+	var liveFollowedGameId =[];
+
+	$jq.ajax({
+				type:'GET',
+				url : "https://api.twitch.tv/helix/streams",
+				headers :{
+						"Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
+				},
+				data : streamsFromFollowers,
+				async:false,
+				cache:false,
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					data.data.forEach(function(element){
+						liveFollowed.push(element.user_id);
+						liveFollowedViewers.push(element.viewer_count);
+						liveFollowedGameId.push(element.game_id);
+					});
+				},
+				error:function(error){
+					console.log(error);
+				}
+	});
+
+	var liveFollowedGame =[];
+
+	$jq.ajax({
+				type:'GET',
+				url : "https://api.twitch.tv/helix/games",
+				headers :{
+						"Client-ID":"hdiebqr67mptvyg1v6ayhbry1njc5q"
+				},
+				data : "&id=" + liveFollowedGameId.join("&id="),
+				async:false,
+				cache:false,
+				dataType:"json",
+				success:function(data){
+					console.log(data);
+					data.data.forEach(function(element){
+						liveFollowedGame.push(element.name);
+					});
+				},
+				error:function(error){
+					console.log(error);
+				}
+	});
+
+
+	var usersFromLiveFollowers = "";
+	liveFollowed.forEach(function(element){
+		usersFromLiveFollowers +="&id="+element;
+	});
+
+	var usersLiveDisplayName = [];
+	var usersLiveProfileImage = [];
+
+	$jq.ajax({
+				type:'GET',
+				url : "https://api.twitch.tv/helix/users",
+				headers :{
+					"Authorization":"Bearer "+token
+				},
+				data : usersFromLiveFollowers,
+				async:false,
+				cache:false,
+				dataType:"json",
+				success:function(data){
+					data.data.forEach(function(element){
+						usersLiveDisplayName.push(element.display_name);
+						usersLiveProfileImage.push(element.profile_image_url);
+					});
+				},
+				error:function(error){
+					console.log(error);
+				}
+	});
+
+	var usersFromFollowers = "";
+	followed.forEach(function(element){
+		usersFromFollowers +="&id="+element;
+	});
+
+	var usersProfileImage = [];
+	var usersDisplayName = [];
+
+	$jq.ajax({
+				type:'GET',
+				url : "https://api.twitch.tv/helix/users",
+				headers :{
+					"Authorization":"Bearer "+token
+				},
+				data : usersFromFollowers,
+				async:false,
+				cache:false,
+				dataType:"json",
+				success:function(data){
+					data.data.forEach(function(element){
+						usersProfileImage.push(element.profile_image_url);
+						usersDisplayName.push(element.display_name);
+					});
+				},
+				error:function(error){
+					console.log(error);
+				}
+	});
+
+	var html = [];
+	var i = 0
+	liveFollowed.forEach(function(element){
+			html.push('<ul class="nav navbar-nav">');
+			html.push('<img src ='+usersLiveProfileImage[i]+'>');
+			//html.push('<h5>'+liveFollowedGame[i]+'\n</h5>');
+			//html.push('<h5>'+liveFollowedViewers[i]+'</h5>');
+			html.push('<h3 class="menu-title">'+usersLiveDisplayName[i]+'</h3>');
+			html.push('</ul>');
+			i++;
+	});
+
+
+	var i = 0;
+
+	followed.forEach(function(element){
+		if(!liveFollowed.includes(followed[i])){
+				html.push('<div class = >');
+				html.push('<img class ="offline" src ='+usersProfileImage[i]+'>');
+				html.push('<h3 class="menu-title">'+usersDisplayName[i]+'</h3>');
+				html.push('</div>');
+			}
+				i++;
+	});
+
+	$jq("#followed-menu").append(html.join("\n"));
+
 $jq.ajax({
 			type:'GET',
-			url : "https://api.twitch.tv/helix/users?login=ZeratoR",
-			headers :{
-				"Authorization":"Bearer "+token
-			},
+			url : "http://localhost:3000/?tweets=ZeratoR",
 			data : "",
 			async:false,
 			cache:false,
 			dataType:"json",
+			xhrFields: {
+				withCredentials: true
+			},
 			success:function(data){
 				console.log(data);
 			},
@@ -222,58 +403,24 @@ function changeGame(){
 								$jq("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
 								$jq("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
 								$jq("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
-								streamers = data;
-								$jq.ajax({
-											type:'GET',
-											url : "http://localhost:3000/?tweets="+data.streams[0].channel.name,
-											data : "",
-											async:false,
-											cache:false,
-											dataType:"json",
-											xhrFields: {
-												withCredentials: true
-											},
-											success:function(data){
-												data.forEach(function(elt){
-													$jq("#tweets").append('<p>'+elt.text+'</p>');
-												});
-
-											},
-											error:function(error){
-												console.log(error);
-											}
-								});
 							}
 						});
 				$jq("#carouselExampleIndicators").css("display","inline-block");
-				$jq("#carouselExampleIndicators").carousel("pause");
-				$jq(".carousel-indicators").click(updateTweets);
+				$jq("#carouselExampleIndicators").carousel();
 }
 
-function updateTweets(){
-	var num = (($jq(this).find(".active")).attr("data-slide-to"));
-	console.log($jq("#carouselExampleIndicators").find(".carousel-inner").find(".carousel-item").eq(num).find(".chat"));
-	$jq("#carouselExampleIndicators").find(".carousel-inner").find(".carousel-item").eq(num).find(".chat").attr("src","http://www.twitch.tv/embed/"+streamers.streams[num].channel.name+"/chat");
-	$jq.ajax({
-				type:'GET',
-				url : "http://localhost:3000/?tweets="+streamers.streams[num].channel.name,
-				data : "",
-				async:false,
-				cache:false,
-				dataType:"json",
-				xhrFields: {
-					withCredentials: true
-				},
-				success:function(data){
+/*
+var Twit = require('twit');
 
-						$jq("#tweets").empty();
-					data.forEach(function(elt){
-						$jq("#tweets").append('<p>'+elt.text+'</p>');
-					});
-
-				},
-				error:function(error){
-					console.log(error);
-				}
-	});
-}
+var T = new Twit({
+  consumer_key:         'BEXhqTckFvyOtXhJmeJNIN9O2',
+  consumer_secret:      'iWjczPSD9L8DnbZ9efzlPgDZuJtsZkJV6vmr3ENNTPaiyXqDYY',
+  access_token:         '4517086245-9v5U2JrNoaoFu2zHxHx8JDPgmBLxE6klAgfQOfU',
+  access_token_secret:  'KvaQO4OQaw8rLc2TgXzUmQQ3oAien6A5L2MlJw4W3wb4v',
+  timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
+  strictSSL:            true,     // optional - requires SSL certificates to be valid.
+})
+T.get('followers/ids', { screen_name: 'tolga_tezel' },  function (err, data, response) {
+  console.log(data)
+})
+*/

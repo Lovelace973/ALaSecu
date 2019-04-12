@@ -2278,6 +2278,20 @@ header .form-inline {
 .horizontal {
   position: relative; }
 
+.offline{
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+}
+
+.navbar img{
+  width: 60%;
+  height: auto;
+  padding-top: 10px;
+}
+
 .horizontal:before {
   background: #ffffff;
   bottom: 0;
