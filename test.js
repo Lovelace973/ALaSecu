@@ -403,10 +403,60 @@ function changeGame(){
 								$jq("#lecteurTwitch1").attr("src","https://player.twitch.tv/?channel="+data.streams[0].channel.name+"&muted=true");
 								$jq("#lecteurTwitch2").attr("src","https://player.twitch.tv/?channel="+data.streams[1].channel.name+"&muted=true");
 								$jq("#lecteurTwitch3").attr("src","https://player.twitch.tv/?channel="+data.streams[2].channel.name+"&muted=true");
+								streamers = data;
+								$jq.ajax({
+											type:'GET',
+											url : "http://localhost:3000/?tweets="+data.streams[0].channel.name,
+											data : "",
+											async:false,
+											cache:false,
+											dataType:"json",
+											xhrFields: {
+												withCredentials: true
+											},
+											success:function(data){
+												data.forEach(function(elt){
+													$jq("#tweets").append('<p>'+elt.text+'</p>');
+												});
+
+											},
+											error:function(error){
+												console.log(error);
+											}
+								});
 							}
 						});
 				$jq("#carouselExampleIndicators").css("display","inline-block");
-				$jq("#carouselExampleIndicators").carousel();
+				$jq("#carouselExampleIndicators").carousel("pause");
+				$jq(".carousel-indicators").click(updateTweets);
+}
+
+function updateTweets(){
+	var num = (($jq(this).find(".active")).attr("data-slide-to"));
+	console.log($jq("#carouselExampleIndicators").find(".carousel-inner").find(".carousel-item").eq(num).find(".chat"));
+	$jq("#carouselExampleIndicators").find(".carousel-inner").find(".carousel-item").eq(num).find(".chat").attr("src","http://www.twitch.tv/embed/"+streamers.streams[num].channel.name+"/chat");
+	$jq.ajax({
+				type:'GET',
+				url : "http://localhost:3000/?tweets="+streamers.streams[num].channel.name,
+				data : "",
+				async:false,
+				cache:false,
+				dataType:"json",
+				xhrFields: {
+					withCredentials: true
+				},
+				success:function(data){
+
+						$jq("#tweets").empty();
+					data.forEach(function(elt){
+						$jq("#tweets").append('<p>'+elt.text+'</p>');
+					});
+
+				},
+				error:function(error){
+					console.log(error);
+				}
+	});
 }
 
 /*
