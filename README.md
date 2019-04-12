@@ -12,3 +12,10 @@ API Météo : https://www.prevision-meteo.ch/ , http://zippopotam.us , http://ww
 
 Template Boostrap : https://colorlib.com/polygon/sufee/index.html
 
+Lien du Git : https://github.com/corentinHuaulme/ALaSecu
+
+Utilisation de node.js,
+Module Twit : "npm install twit"
+Lancement du serveur : "node server.js"
+
+Le site doit être accéder depuis localhost pour pouvoir accéder au serveur.
